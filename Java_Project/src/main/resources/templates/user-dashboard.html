@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="top-bar">
+        <div>
+            <h2 class="page-title">
+                <i class="fa-solid fa-user"></i>
+                Bine ai venit, <span th:text="${username}"></span>!
+            </h2>
+            <p class="page-subtitle" th:text="${message}"></p>
+        </div>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn-secondary">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3 class="section-title">
+            <i class="fa-solid fa-magnifying-glass"></i> Filtrare mașini
+        </h3>
+
+        <form th:action="@{/user/dashboard}" method="get">
+            <div class="grid-3">
+                <input type="text" name="marca" placeholder="Marcă" th:value="${marca}">
+                <input type="text" name="modelCar" placeholder="Model" th:value="${modelCar}">
+                <input type="text" name="combustibil" placeholder="Combustibil" th:value="${combustibil}">
+            </div>
+            <div style="margin-top: 14px;">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-filter"></i> Filtrează
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3 class="section-title">
+            <i class="fa-solid fa-car"></i> Lista mașinilor
+        </h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Marcă</th>
+                    <th>Model</th>
+                    <th>Culoare</th>
+                    <th>An</th>
+                    <th>Motor</th>
+                    <th>Combustibil</th>
+                    <th>Putere</th>
+                    <th>Cuplu</th>
+                    <th>Portbagaj</th>
+                    <th>Preț</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car : ${cars}">
+                    <td th:text="${car.nrInmatriculare}"></td>
+                    <td th:text="${car.marca}"></td>
+                    <td th:text="${car.model}"></td>
+                    <td th:text="${car.culoare}"></td>
+                    <td th:text="${car.anulFabricatiei}"></td>
+                    <td th:text="${car.capacitateaCilindrica}"></td>
+                    <td th:text="${car.tipCombustibil}"></td>
+                    <td th:text="${car.puterea}"></td>
+                    <td th:text="${car.cuplul}"></td>
+                    <td th:text="${car.volumulPortbagajului}"></td>
+                    <td th:text="${car.pretul}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
